@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moses C. Adika — Cloud & DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#0a1929;
+    --bg-panel:#112a43;
+    --bg-panel-2:#0d2237;
+    --grid-line:rgba(100,217,232,0.07);
+    --grid-line-strong:rgba(100,217,232,0.14);
+    --accent-cyan:#64d9e8;
+    --accent-cyan-dim:rgba(100,217,232,0.35);
+    --accent-amber:#f4b860;
+    --text-primary:#eaf2f8;
+    --text-muted:#7896ac;
+    --text-dim:#4d6377;
+    --radius:3px;
+    --mono:'IBM Plex Mono', ui-monospace, monospace;
+    --sans:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+    --maxw:1180px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  body{
+    background:
+      linear-gradient(var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--bg-deep);
+    color:var(--text-primary);
+    font-family:var(--sans);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+  ::selection{background:var(--accent-cyan-dim); color:var(--bg-deep);}
+
+  :focus-visible{
+    outline:2px solid var(--accent-cyan);
+    outline-offset:3px;
+  }
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 32px;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:0.08em;
+    color:var(--accent-cyan);
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    text-transform:uppercase;
+  }
+  .eyebrow .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--accent-cyan);
+    box-shadow:0 0 0 3px rgba(100,217,232,0.15);
+    animation:pulse 2.4s ease-in-out infinite;
+    flex-shrink:0;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.35; }
+  }
+
+  h1,h2,h3{
+    font-family:var(--mono);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--text-primary);
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    backdrop-filter:blur(10px);
+    background:rgba(10,25,41,0.82);
+    border-bottom:1px solid var(--grid-line-strong);
+  }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:0 32px;
+    height:64px; display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:var(--mono); font-weight:600; font-size:15px;
+    color:var(--text-primary); text-decoration:none;
+    display:flex; align-items:center; gap:2px;
+  }
+  .brand .b1{color:var(--accent-cyan);}
+  .nav-links{
+    display:flex; align-items:center; gap:28px;
+    font-family:var(--mono); font-size:13px;
+  }
+  .nav-links a{
+    text-decoration:none; color:var(--text-muted);
+    transition:color 0.15s ease;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--accent-cyan);}
+  .nav-cta{
+    border:1px solid var(--accent-cyan-dim);
+    padding:8px 14px;
+    border-radius:var(--radius);
+    color:var(--accent-cyan) !important;
+    transition:all 0.15s ease;
+  }
+  .nav-cta:hover{
+    background:rgba(100,217,232,0.08);
+    border-color:var(--accent-cyan);
+  }
+  .nav-toggle{display:none;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:168px 0 96px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:48px;
+    align-items:center;
+  }
+  .hero-kicker{
+    font-family:var(--mono); font-size:13px; color:var(--accent-cyan);
+    letter-spacing:0.06em; margin-bottom:20px;
+  }
+  .hero h1{
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.08;
+    margin-bottom:18px;
+  }
+  .hero h1 .accent{color:var(--accent-cyan);}
+  .hero p.lede{
+    font-family:var(--sans);
+    color:var(--text-muted);
+    font-size:17px;
+    max-width:46ch;
+    margin-bottom:32px;
+  }
+  .hero-actions{
+    display:flex; gap:14px; flex-wrap:wrap;
+    margin-bottom:44px;
+  }
+  .btn{
+    font-family:var(--mono); font-size:13px;
+    padding:12px 20px;
+    border-radius:var(--radius);
+    text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px;
+    transition:all 0.15s ease;
+    border:1px solid transparent;
+  }
+  .btn-primary{
+    background:var(--accent-cyan);
+    color:var(--bg-deep);
+    font-weight:600;
+  }
+  .btn-primary:hover{ background:#82e4ef; }
+  .btn-ghost{
+    border-color:var(--grid-line-strong);
+    color:var(--text-primary);
+  }
+  .btn-ghost:hover{ border-color:var(--accent-cyan); color:var(--accent-cyan); }
+
+  .stat-row{
+    display:grid;
+    grid-template-columns:repeat(3, auto);
+    gap:36px;
+  }
+  .stat{ font-family:var(--mono); }
+  .stat .num{
+    font-size:22px; font-weight:600; color:var(--text-primary);
+    display:block;
+  }
+  .stat .num .accent{color:var(--accent-cyan);}
+  .stat .label{
+    font-size:11px; color:var(--text-dim);
+    text-transform:uppercase; letter-spacing:0.06em;
+  }
+
+  /* ---------- HERO DIAGRAM (signature element) ---------- */
+  .diagram-panel{
+    background:var(--bg-panel);
+    border:1px solid var(--grid-line-strong);
+    border-radius:6px;
+    padding:22px;
+    position:relative;
+  }
+  .diagram-panel .panel-head{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:11px; color:var(--text-dim);
+    margin-bottom:14px; letter-spacing:0.05em;
+  }
+  .panel-head .lights{ display:flex; gap:6px; }
+  .panel-head .lights span{
+    width:8px; height:8px; border-radius:50%; background:var(--text-dim);
+  }
+  .panel-head .lights span:nth-child(1){ background:#e5738a; }
+  .panel-head .lights span:nth-child(2){ background:var(--accent-amber); }
+  .panel-head .lights span:nth-child(3){ background:#6ee7a8; }
+
+  svg.topology{ width:100%; height:auto; display:block; }
+  .topo-node rect{
+    fill:var(--bg-panel-2);
+    stroke:var(--grid-line-strong);
+    stroke-width:1;
+  }
+  .topo-node text{
+    font-family:var(--mono);
+    fill:var(--text-primary);
+    font-size:10.5px;
+  }
+  .topo-node .sub{ fill:var(--text-dim); font-size:8.5px; }
+  .topo-link{
+    fill:none;
+    stroke:var(--accent-cyan-dim);
+    stroke-width:1.4;
+    stroke-dasharray:4 4;
+    animation:flow 1.6s linear infinite;
+  }
+  @keyframes flow{ to{ stroke-dashoffset:-16; } }
+  .topo-node.active rect{ stroke:var(--accent-cyan); }
+  .topo-pulse{
+    fill:var(--accent-cyan);
+    animation:pulse 2.4s ease-in-out infinite;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:96px 0; border-top:1px solid var(--grid-line); }
+  .section-head{ margin-bottom:48px; max-width:60ch; }
+  .section-head h2{ font-size:clamp(24px,3vw,32px); margin-bottom:12px; }
+  .section-head p{ color:var(--text-muted); font-size:15.5px; }
+
+  .reveal{
+    opacity:0; transform:translateY(16px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+  }
+  .about-grid p{ color:var(--text-muted); font-size:15.5px; margin-bottom:16px; }
+  .about-grid p strong{ color:var(--text-primary); font-weight:500; }
+
+  .fact-list{ display:flex; flex-direction:column; gap:0; }
+  .fact{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:14px 0; border-bottom:1px dashed var(--grid-line-strong);
+    font-family:var(--mono); font-size:13px;
+  }
+  .fact:first-child{ border-top:1px dashed var(--grid-line-strong); }
+  .fact .k{ color:var(--text-dim); }
+  .fact .v{ color:var(--text-primary); text-align:right; }
+
+  /* ---------- STACK / SKILLS ---------- */
+  .stack-groups{ display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
+  .stack-card{
+    background:var(--bg-panel);
+    border:1px solid var(--grid-line-strong);
+    border-radius:6px;
+    padding:22px 24px;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .stack-card:hover{ border-color:var(--accent-cyan-dim); transform:translateY(-2px); }
+  .stack-card .head{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--mono); font-size:13px; color:var(--accent-cyan);
+    margin-bottom:14px; text-transform:uppercase; letter-spacing:0.05em;
+  }
+  .stack-card .head::before{
+    content:''; width:14px; height:1px; background:var(--accent-cyan);
+  }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .chip{
+    font-family:var(--mono); font-size:12px;
+    padding:6px 10px;
+    border:1px solid var(--grid-line-strong);
+    border-radius:4px;
+    color:var(--text-muted);
+  }
+
+  /* ---------- EXPERIENCE (deploy log) ---------- */
+  .log{ display:flex; flex-direction:column; }
+  .log-entry{
+    display:grid;
+    grid-template-columns:150px 1fr;
+    gap:28px;
+    padding:26px 0;
+    border-bottom:1px solid var(--grid-line);
+  }
+  .log-entry:first-child{ padding-top:0; }
+  .log-meta{ font-family:var(--mono); font-size:12px; color:var(--text-dim); }
+  .log-meta .hash{ color:var(--accent-cyan); display:block; margin-bottom:6px; }
+  .log-body h3{ font-size:17px; margin-bottom:4px; }
+  .log-body .role-org{
+    font-family:var(--mono); font-size:12.5px; color:var(--text-muted); margin-bottom:12px; display:block;
+  }
+  .log-body ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .log-body li{
+    color:var(--text-muted); font-size:14.5px;
+    padding-left:18px; position:relative;
+  }
+  .log-body li::before{
+    content:'›'; position:absolute; left:0; color:var(--accent-cyan);
+    font-family:var(--mono);
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--mono); font-size:10.5px;
+    color:#6ee7a8; border:1px solid rgba(110,231,168,0.3);
+    padding:3px 8px; border-radius:20px; margin-top:10px;
+    text-transform:uppercase; letter-spacing:0.05em;
+  }
+  .badge .d{ width:5px;height:5px;border-radius:50%; background:#6ee7a8; }
+
+  /* ---------- PROJECTS ---------- */
+  .project-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:20px;
+  }
+  .project-card{
+    background:var(--bg-panel);
+    border:1px solid var(--grid-line-strong);
+    border-radius:6px;
+    padding:22px;
+    display:flex; flex-direction:column;
+    transition:border-color 0.15s ease, transform 0.15s ease;
+  }
+  .project-card:hover{ border-color:var(--accent-cyan-dim); transform:translateY(-3px); }
+  .project-card .status{
+    font-family:var(--mono); font-size:10.5px;
+    color:var(--accent-amber);
+    display:flex; align-items:center; gap:6px;
+    margin-bottom:14px; text-transform:uppercase; letter-spacing:0.05em;
+  }
+  .project-card .status .d{
+    width:6px;height:6px;border-radius:50%; background:var(--accent-amber);
+  }
+  .project-card h3{ font-size:16px; margin-bottom:8px; }
+  .project-card p{ color:var(--text-muted); font-size:14px; margin-bottom:16px; flex-grow:1; }
+  .project-card .chip-row{ margin-bottom:16px; }
+  .project-card .links{ display:flex; gap:16px; font-family:var(--mono); font-size:12.5px; }
+  .project-card .links a{ text-decoration:none; color:var(--accent-cyan); }
+  .project-card .links a:hover{ text-decoration:underline; }
+
+  /* ---------- CONTACT (terminal) ---------- */
+  .terminal{
+    background:var(--bg-panel-2);
+    border:1px solid var(--grid-line-strong);
+    border-radius:8px;
+    max-width:720px;
+    overflow:hidden;
+  }
+  .terminal .bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    background:var(--bg-panel);
+    border-bottom:1px solid var(--grid-line-strong);
+  }
+  .terminal .bar span{ width:9px;height:9px;border-radius:50%; }
+  .terminal .bar span:nth-child(1){ background:#e5738a; }
+  .terminal .bar span:nth-child(2){ background:var(--accent-amber); }
+  .terminal .bar span:nth-child(3){ background:#6ee7a8; }
+  .terminal .bar .title{
+    font-family:var(--mono); font-size:12px; color:var(--text-dim); margin-left:8px;
+  }
+  .terminal .body{ padding:26px; font-family:var(--mono); font-size:14px; }
+  .terminal .line{ margin-bottom:14px; display:flex; gap:10px; flex-wrap:wrap; }
+  .terminal .prompt{ color:var(--accent-cyan); }
+  .terminal .cmd{ color:var(--text-primary); }
+  .terminal .out{ color:var(--text-muted); padding-left:22px; margin-bottom:14px; }
+  .terminal a.out-link{ color:var(--accent-cyan); text-decoration:none; }
+  .terminal a.out-link:hover{ text-decoration:underline; }
+  .cursor{
+    display:inline-block; width:8px; height:15px; background:var(--accent-cyan);
+    animation:blink 1s step-end infinite; vertical-align:middle;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  footer{
+    border-top:1px solid var(--grid-line);
+    padding:32px 0;
+  }
+  .footer-row{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:12px; color:var(--text-dim);
+    flex-wrap:wrap; gap:12px;
+  }
+  .footer-row a{ color:var(--text-dim); text-decoration:none; }
+  .footer-row a:hover{ color:var(--accent-cyan); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; gap:36px; }
+    .stack-groups{ grid-template-columns:1fr; }
+    .project-grid{ grid-template-columns:1fr 1fr; }
+    .stat-row{ grid-template-columns:repeat(3,1fr); gap:18px; }
+  }
+  @media (max-width: 640px){
+    .wrap{ padding:0 20px; }
+    .nav-links{ display:none; }
+    .hero{ padding:140px 0 64px; }
+    section{ padding:64px 0; }
+    .project-grid{ grid-template-columns:1fr; }
+    .log-entry{ grid-template-columns:1fr; gap:8px; }
+    .stat-row{ grid-template-columns:1fr; gap:14px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand"><span class="b1">~/</span>Moses-C-Adika</a>
+    <nav class="nav-links">
+      <a href="#about">about</a>
+      <a href="#stack">stack</a>
+      <a href="#experience">experience</a>
+      <a href="#projects">projects</a>
+      <a href="#contact" class="nav-cta">contact →</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" style="border-top:none; padding-top:168px;">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="hero-kicker">// cloud infrastructure &amp; delivery systems</div>
+        <h1>Moses C. Adika<br>builds infrastructure<br>that <span class="accent">ships itself.</span></h1>
+        <p class="lede">Cloud &amp; DevOps Engineer specializing in resilient AWS architectures, infrastructure as code, and CI/CD pipelines that let teams deploy with confidence — not caution.</p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View deployed work</a>
+          <a href="#contact" class="btn btn-ghost">$ get in touch</a>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="num"><span class="accent">99.98%</span></span><span class="label">Uptime maintained</span></div>
+          <div class="stat"><span class="num">40+</span><span class="label">Pipelines shipped</span></div>
+          <div class="stat"><span class="num">6</span><span class="label">Years in production</span></div>
+        </div>
+      </div>
+
+      <div class="diagram-panel reveal in">
+        <div class="panel-head">
+          <span>topology.yaml — live</span>
+          <span class="lights"><span></span><span></span><span></span></span>
+        </div>
+        <svg class="topology" viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- links -->
+          <path class="topo-link" d="M80,60 L200,60" />
+          <path class="topo-link" d="M200,60 L320,40" />
+          <path class="topo-link" d="M200,60 L320,90" />
+          <path class="topo-link" d="M320,40 L400,60" />
+          <path class="topo-link" d="M320,90 L400,90" />
+          <path class="topo-link" d="M200,60 L200,150" />
+          <path class="topo-link" d="M200,150 L120,220" />
+          <path class="topo-link" d="M200,150 L280,220" />
+          <path class="topo-link" d="M120,220 L120,270" />
+          <path class="topo-link" d="M280,220 L280,270" />
+
+          <!-- nodes -->
+          <g class="topo-node active" transform="translate(20,42)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">users</text>
+            <text class="sub" x="10" y="28">edge / cdn</text>
+          </g>
+
+          <g class="topo-node active" transform="translate(160,42)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">gateway</text>
+            <text class="sub" x="10" y="28">alb + waf</text>
+          </g>
+
+          <g class="topo-node" transform="translate(280,22)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">svc: api</text>
+            <text class="sub" x="10" y="28">ecs fargate</text>
+          </g>
+
+          <g class="topo-node" transform="translate(280,72)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">svc: worker</text>
+            <text class="sub" x="10" y="28">ecs fargate</text>
+          </g>
+
+          <g class="topo-node" transform="translate(360,42)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">queue</text>
+            <text class="sub" x="10" y="28">sqs</text>
+          </g>
+
+          <g class="topo-node" transform="translate(360,72)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">cache</text>
+            <text class="sub" x="10" y="28">redis</text>
+          </g>
+
+          <g class="topo-node" transform="translate(160,132)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">ci / cd</text>
+            <text class="sub" x="10" y="28">pipeline</text>
+          </g>
+
+          <g class="topo-node" transform="translate(80,202)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">terraform</text>
+            <text class="sub" x="10" y="28">state: ok</text>
+          </g>
+
+          <g class="topo-node" transform="translate(240,202)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">registry</text>
+            <text class="sub" x="10" y="28">ecr images</text>
+          </g>
+
+          <g class="topo-node" transform="translate(80,252)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">rds</text>
+            <text class="sub" x="10" y="28">multi-az</text>
+          </g>
+
+          <g class="topo-node" transform="translate(240,252)">
+            <rect width="80" height="36" rx="4"/>
+            <text x="10" y="16">cloudwatch</text>
+            <text class="sub" x="10" y="28">alerts: 0</text>
+          </g>
+
+          <circle class="topo-pulse" cx="60" cy="60" r="3"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dot"></span>about</div>
+        <h2 style="margin-bottom:20px;">From bare-metal racks to<br>self-healing clusters.</h2>
+        <p>I'm a <strong>Cloud &amp; DevOps Engineer</strong> who cares less about the tools in fashion and more about systems that stay up at 3am without a phone call. My work sits at the intersection of infrastructure, automation, and reliability — designing environments where deployment is boring, on purpose.</p>
+        <p>Over the past several years I've helped teams move from manual deploys and tribal knowledge to <strong>version-controlled, observable, self-service infrastructure</strong>. I write Terraform like application code, treat pipelines as products, and measure success in incidents that never happened.</p>
+        <p>Outside of production, you'll find me contributing to internal tooling, mentoring engineers on cloud fundamentals, and occasionally breaking my own homelab cluster on purpose to see how fast it recovers.</p>
+      </div>
+      <div class="reveal">
+        <div class="fact-list">
+          <div class="fact"><span class="k">based in</span><span class="v">Remote / US-East</span></div>
+          <div class="fact"><span class="k">focus</span><span class="v">AWS · Kubernetes · IaC</span></div>
+          <div class="fact"><span class="k">certifications</span><span class="v">AWS SA-Pro, CKA</span></div>
+          <div class="fact"><span class="k">currently</span><span class="v">Senior DevOps Engineer</span></div>
+          <div class="fact"><span class="k">response time</span><span class="v">&lt; 24h</span></div>
+          <div class="fact"><span class="k">resume</span><span class="v">Moses-C-Adika.pdf</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= STACK ================= -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>stack</div>
+        <h2>Tools I run in production</h2>
+        <p>Grouped by where they sit in the lifecycle — from provisioning to shipping to watching it all stay healthy.</p>
+      </div>
+      <div class="stack-groups">
+        <div class="stack-card reveal">
+          <div class="head">Cloud &amp; Compute</div>
+          <div class="chip-row">
+            <span class="chip">AWS</span><span class="chip">GCP</span><span class="chip">EC2 / ECS / EKS</span><span class="chip">Lambda</span><span class="chip">Fargate</span>
+          </div>
+        </div>
+        <div class="stack-card reveal">
+          <div class="head">Infrastructure as Code</div>
+          <div class="chip-row">
+            <span class="chip">Terraform</span><span class="chip">CloudFormation</span><span class="chip">Pulumi</span><span class="chip">Ansible</span>
+          </div>
+        </div>
+        <div class="stack-card reveal">
+          <div class="head">CI/CD &amp; Delivery</div>
+          <div class="chip-row">
+            <span class="chip">GitHub Actions</span><span class="chip">Jenkins</span><span class="chip">ArgoCD</span><span class="chip">GitLab CI</span>
+          </div>
+        </div>
+        <div class="stack-card reveal">
+          <div class="head">Containers &amp; Orchestration</div>
+          <div class="chip-row">
+            <span class="chip">Docker</span><span class="chip">Kubernetes</span><span class="chip">Helm</span><span class="chip">Istio</span>
+          </div>
+        </div>
+        <div class="stack-card reveal">
+          <div class="head">Observability</div>
+          <div class="chip-row">
+            <span class="chip">Prometheus</span><span class="chip">Grafana</span><span class="chip">Datadog</span><span class="chip">CloudWatch</span>
+          </div>
+        </div>
+        <div class="stack-card reveal">
+          <div class="head">Languages &amp; Scripting</div>
+          <div class="chip-row">
+            <span class="chip">Python</span><span class="chip">Go</span><span class="chip">Bash</span><span class="chip">TypeScript</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= EXPERIENCE ================= -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>experience</div>
+        <h2>Deployment log</h2>
+        <p>A history of roles, read like a release history — what shipped, and what it changed.</p>
+      </div>
+      <div class="log">
+        <div class="log-entry reveal">
+          <div class="log-meta">
+            <span class="hash">#a1c9f21</span>
+            2023 — present
+          </div>
+          <div class="log-body">
+            <h3> DevOps Engineer</h3>
+            <span class="role-org">DR Financial LLC</span>
+            <ul>
+              <li>Led migration of monolith to containerized microservices on EKS, cutting deploy time from 40 minutes to under 4.</li>
+              <li>Designed multi-account AWS landing zone with Terraform modules, standardizing security and network baselines.</li>
+              <li>Built self-service internal platform enabling product teams to provision infrastructure without filing tickets.</li>
+            </ul>
+            <span class="badge"><span class="d"></span>deployed to production</span>
+          </div>
+        </div>
+
+        <div class="log-entry reveal">
+          <div class="log-meta">
+            <span class="hash">#7fb02de</span>
+            2020 — 2023
+          </div>
+          <div class="log-body">
+            <h3>Cloud Engineer</h3>
+            <span class="role-org">Med Stat Logistics, LLC</span>
+            <ul>
+              <li>Owned CI/CD pipelines across 20+ services, reducing failed deploys by 65% through automated rollback gates.</li>
+              <li>Implemented centralized observability stack with Prometheus and Grafana, cutting MTTR by half.</li>
+              <li>Introduced cost-monitoring dashboards that identified and eliminated 30% of idle cloud spend.</li>
+            </ul>
+            <span class="badge"><span class="d"></span>deployed to production</span>
+          </div>
+        </div>
+
+        <div class="log-entry reveal">
+          <div class="log-meta">
+            <span class="hash">#0e44a19</span>
+            2018 — 2020
+          </div>
+          <div class="log-body">
+            <h3>Tech Support</h3>
+            <span class="role-org">Geek Squad</span>
+            <ul>
+              <li>Automated server provisioning with Ansible, replacing manual setup across a 100+ node fleet.</li>
+              <li>Migrated on-prem infrastructure to AWS, laying the groundwork for the team's cloud-first strategy.</li>
+            </ul>
+            <span class="badge"><span class="d"></span>archived</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>projects</div>
+        <h2>Running instances</h2>
+        <p>Selected infrastructure and tooling projects — production systems and open-source utilities.</p>
+      </div>
+      <div class="project-grid">
+        <div class="project-card reveal">
+          <div class="status"><span class="d"></span>live</div>
+          <h3>Platform Provisioning Toolkit</h3>
+          <p>A Terraform module library and CLI for spinning up standardized, security-hardened AWS environments in minutes.</p>
+          <div class="chip-row"><span class="chip">Terraform</span><span class="chip">Go</span><span class="chip">AWS</span></div>
+          <div class="links"><a href="#">source →</a><a href="#">docs →</a></div>
+        </div>
+        <div class="project-card reveal">
+          <div class="status"><span class="d"></span>live</div>
+          <h3>Zero-Downtime Deploy Pipeline</h3>
+          <p>Reusable GitHub Actions pipeline implementing blue/green deploys with automatic rollback on health-check failure.</p>
+          <div class="chip-row"><span class="chip">GitHub Actions</span><span class="chip">Kubernetes</span></div>
+          <div class="links"><a href="#">source →</a><a href="#">writeup →</a></div>
+        </div>
+        <div class="project-card reveal">
+          <div class="status"><span class="d"></span>live</div>
+          <h3>Cluster Cost Visualizer</h3>
+          <p>An internal dashboard mapping Kubernetes namespace usage to real dollar cost, surfaced to every team lead weekly.</p>
+          <div class="chip-row"><span class="chip">Python</span><span class="chip">Grafana</span><span class="chip">Prometheus</span></div>
+          <div class="links"><a href="#">source →</a><a href="#">demo →</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow"><span class="dot"></span>contact</div>
+        <h2>Let's provision something together</h2>
+        <p>Open to senior DevOps, SRE, and cloud infrastructure roles — and interesting problems in general.</p>
+      </div>
+      <div class="terminal reveal">
+        <div class="bar">
+          <span></span><span></span><span></span>
+          <span class="title">mosesadika@gmail.com:~</span>
+        </div>
+        <div class="body">
+          <div class="line"><span class="prompt">$</span><span class="cmd">contact --email</span></div>
+          <div class="out"><a class="out-link" href="mailto:mosesadika@gmail.com">mosesadika@gmail.com</a></div>
+
+          <div class="line"><span class="prompt">$</span><span class="cmd">contact --linkedin</span></div>
+          <div class="out"><a class="out-link" href="https://linkedin.com/in/your-handle" target="_blank" rel="noopener">https://www.linkedin.com/in/moses-adika-6b626637a/</a></div>
+
+          <div class="line"><span class="prompt">$</span><span class="cmd">contact --github</span></div>
+          <div class="out"><a class="out-link" href="https://github.com/your-handle" target="_blank" rel="noopener">https://github.com/mosesadika</a></div>
+
+          <div class="line"><span class="prompt">$</span><span class="cmd">contact --website</span></div>
+          <div class="out"><a class="out-link" href="https://my-portfolio-app.mosesadika.com" target="_blank" rel="noopener">https://my-portfolio-app.mosesadika.com</a></div>
+
+          <div class="line"><span class="prompt">$</span><span class="cmd" style="color:var(--text-dim);">status --check</span><span class="cursor"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 Jordan Reyes. Built and deployed with intent.</span>
+    <span><a href="#top">back to top ↑</a></span>
+  </div>
+</footer>
+
+<script>
+  // Scroll-reveal for sections
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
