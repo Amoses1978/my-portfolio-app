@@ -24,3 +24,18 @@ jobs:
               run: |
                 docker push ${{secrets.DOCKER_USERNAME}}/my-portfolio-app:${{github.run_number}}
                 docker push ${{secrets.DOCKER_USERNAME}}/my-portfolio-app:latest
+    deploy:
+        runs-on: ubuntu-latest
+        needs: build
+        steps:
+            - name: ssh to Linux and run container
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{secrets.HOSTS}}
+                username: ${{secrets.SSH_USERNAME}}
+                key: ${{secrets.KEY}}}
+                PORT: ${{secrets.PORT}}
+                Script: |
+                    docker rm -f my-portfolio-app || echo "Container not found, skipping removal"
+                    docker rmi -f ${{secrets.USERNAME}}/my-portfolio-app:latest || echo "Image does not exist"
+                    docker run -d --name my-portfolio-app -p 80:80 ${{secrets.DOCKER_USERNAME}}/my-portfolio-app:latest
